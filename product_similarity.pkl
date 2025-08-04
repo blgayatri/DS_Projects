@@ -1,18 +1,24 @@
-# Assuming this variable is already created:
-# customer_product_matrix = df.pivot_table(index='CustomerID', columns='Description', values='Quantity', aggfunc='sum').fillna(0)
-
 from sklearn.metrics.pairwise import cosine_similarity
+import joblib
 
-# Compute cosine similarity between products (i.e., columns)
+# Ensure product names are strings — this prevents KeyError
+customer_product_matrix.columns = customer_product_matrix.columns.astype(str)
+
+# Create similarity matrix
 product_similarity = cosine_similarity(customer_product_matrix.T)
 
-# Convert to DataFrame
+# Create DataFrame with string indices and columns
 product_similarity_df = pd.DataFrame(
     product_similarity,
     index=customer_product_matrix.columns,
     columns=customer_product_matrix.columns
 )
 
-# Save the similarity matrix
+# Convert all to strings again (precaution)
+product_similarity_df.columns = product_similarity_df.columns.astype(str)
+product_similarity_df.index = product_similarity_df.index.astype(str)
+
+# Save using joblib with protocol 4
 joblib.dump(product_similarity_df, "product_similarity.pkl", protocol=4)
-print("✅ product_similarity.pkl saved successfully.")
+
+print("✅ Cleaned and saved product_similarity.pkl")
