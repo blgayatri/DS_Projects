@@ -1,2 +1,5 @@
 import joblib
-joblib.dump(kmeans, "rfm_cluster_model.pkl")
+
+# Save the trained KMeans clustering model
+joblib.dump(kmeans, "rfm_cluster_model.pkl", protocol=4)
+print("rfm_cluster_model.pkl saved successfully.")
