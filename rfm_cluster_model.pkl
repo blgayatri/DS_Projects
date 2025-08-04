@@ -1,0 +1,2 @@
+import joblib
+joblib.dump(kmeans, "rfm_cluster_model.pkl")
