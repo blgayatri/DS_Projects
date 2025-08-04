@@ -1,1 +1,3 @@
-joblib.dump(scaler, "scaler.pkl")
+# Save the StandardScaler used for RFM scaling
+joblib.dump(scaler, "scaler.pkl", protocol=4)
+print("✅ scaler.pkl saved successfully.")
